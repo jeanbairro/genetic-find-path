@@ -56,14 +56,14 @@ function Cromossomo() {
 
 	this.cruzar = function(cromossomo) {
 		var metade = this.genes.length / 2;
-		var genesDoPai1 = this.genes.splice(0, metade);
-		var genesDoPai2 = cromossomo.genes.splice(metade, metade);
+		var genesDoPai1 = this.genes.map(function(x) { return x }).splice(0, metade);
+		var genesDoPai2 = cromossomo.genes.map(function(x) { return x }).splice(metade, metade);
 		
-		var filho = [];
-		filho.push.apply(filho, genesDoPai1);
-		filho.push.apply(filho, genesDoPai2);
+		var genesDofilho = [];
+		genesDofilho.push.apply(genesDofilho, genesDoPai1);
+		genesDofilho.push.apply(genesDofilho, genesDoPai2);
 
-		return filho;
+		return genesDofilho;
 	}
 
 	this.mutar = function(taxaDeMutacao) {
@@ -71,7 +71,7 @@ function Cromossomo() {
         {
             if (Math.random() < taxaDeMutacao)
             {
-                this.genes[i] = Math.floor(Math.random() * valorMinimo) + valorMaximo;
+                this.genes[i] = Math.floor(Math.random() * 1) + 4;
             }
         }
     }
