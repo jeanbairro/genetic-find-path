@@ -3,11 +3,16 @@ function Cromossomo() {
 	this.genes = [];
 	this.fitness = 0;
 
-	this.definirGenes = function(numeroDeGenes, valorMaximo, valorMinimo) {
+	this.definirGenesAleatorios = function(numeroDeGenes, valorMaximo, valorMinimo) {
 		for (var i = 0; i < numeroDeGenes; i++) {
 			this.genes.push(Math.floor(Math.random() * valorMinimo) + valorMaximo);  
 		}
 	}
+
+	this.definirGenes = function(genes) {
+		this.genes = genes;
+	}
+
 
 	this.calcularFitness = function(mapa) {
 		var posicaoX = mapa.posicaoInicial.X;
@@ -37,9 +42,37 @@ function Cromossomo() {
         
         var diferencaX = Math.abs(posicaoX - mapa.posicaoFinal.X);
         var diferencaY = Math.abs(posicaoY - mapa.posicaoFinal.Y);
-        
         this.fitness = 1 / (diferencaX + diferencaY + 1);
 
-        console.log(`1 / ${diferencaX} + ${diferencaY} + 1 = ${this.fitness}`);
+        var str = "";
+        this.genes.forEach(function(g) {
+        	str += (mapa.traduzir(g) + ", ");
+        });
+
+        console.log(str);
+        console.log(`1 / (${diferencaX} + ${diferencaY} + 1) = ${this.fitness}`);
+        console.log("\n");
 	}
+
+	this.cruzar = function(cromossomo) {
+		var metade = this.genes.length / 2;
+		var genesDoPai1 = this.genes.splice(0, metade);
+		var genesDoPai2 = cromossomo.genes.splice(metade, metade);
+		
+		var filho = [];
+		filho.push.apply(filho, genesDoPai1);
+		filho.push.apply(filho, genesDoPai2);
+
+		return filho;
+	}
+
+	this.mutar = function(taxaDeMutacao) {
+        for (var i = 0; i < this.genes.length; i++) 
+        {
+            if (Math.random() < taxaDeMutacao)
+            {
+                this.genes[i] = Math.floor(Math.random() * valorMinimo) + valorMaximo;
+            }
+        }
+    }
 }

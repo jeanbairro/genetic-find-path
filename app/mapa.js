@@ -33,4 +33,17 @@ function Mapa() {
         [1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 	];
+
+	this.traduzir = function(valor) {
+		switch(valor) {
+			case 1:
+				return "CIMA";
+			case 2:
+				return "BAIXO";
+			case 3:
+				return "ESQUERDA";
+			case 4: 
+				return "DIREITA";
+		}
+	}
 }
