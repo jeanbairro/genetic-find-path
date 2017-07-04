@@ -2,11 +2,12 @@ function Populacao(cromossomos) {
 	const TAMANHO_DA_POPULACAO = 100;
 
 	this.cromossomos = cromossomos || [];
+	this.fitnessMedio = 0;
 
 	this.inicializar = function(mapa) {
 		for (var i = 0; i < TAMANHO_DA_POPULACAO; i++) {
 			var cromossomo = new Cromossomo();
-			cromossomo.definirGenesAleatorios(20, 1, 4);
+			cromossomo.definirGenesAleatorios(30, 1, 4);
 			cromossomo.calcularFitness(mapa);
 			
 			this.cromossomos.push(cromossomo);
@@ -46,5 +47,9 @@ function Populacao(cromossomos) {
 		return this.cromossomos.sort(function(a, b) {
 			return b.fitness - a.fitness
 		})[0];
+	}
+
+	this.calcularFitnessMedio = function() {
+		this.fitnessMedio = this.retornarFitnessTotal() / this.cromossomos.length;
 	}
 }

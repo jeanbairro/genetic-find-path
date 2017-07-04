@@ -29,8 +29,13 @@ function Cromossomo() {
             else if (gene === mapa.direcao.CIMA && posicaoY > 0 && mapa.labirinto[posicaoY-1][posicaoX] === 0) {
                 --posicaoY;
             }
-            else if (gene === mapa.direcao.ESQUERDA && posicaoX > 0 && (mapa.labirinto[posicaoY][posicaoX-1] === 0 || mapa.labirinto[posicaoY][posicaoX-1] == 8)) {
+            else if (gene === mapa.direcao.ESQUERDA && posicaoX > 0 && (mapa.labirinto[posicaoY][posicaoX-1] === 0 || mapa.labirinto[posicaoY][posicaoX-1] === 8)) {
                 --posicaoX;
+
+                if (mapa.labirinto[posicaoY][posicaoX] === 8) {
+                    break;
+                }
+
             }
             else if (gene === mapa.direcao.BAIXO && posicaoY < mapa.tamanho.ALTURA-1 && mapa.labirinto[posicaoY+1][posicaoX] === 0) {
                 ++posicaoY;
@@ -44,14 +49,14 @@ function Cromossomo() {
         var diferencaY = Math.abs(posicaoY - mapa.posicaoFinal.Y);
         this.fitness = 1 / (diferencaX + diferencaY + 1);
 
-        var str = "";
-        this.genes.forEach(function(g) {
-        	str += (mapa.traduzir(g) + ", ");
-        });
+        // var str = "";
+        // this.genes.forEach(function(g) {
+        // 	str += (mapa.traduzir(g) + ", ");
+        // });
 
-        console.log(str);
-        console.log(`1 / (${diferencaX} + ${diferencaY} + 1) = ${this.fitness}`);
-        console.log("\n");
+        // console.log(str);
+        // console.log(`1 / (${diferencaX} + ${diferencaY} + 1) = ${this.fitness}`);
+        // console.log("\n");
 	}
 
 	this.cruzar = function(cromossomo) {
@@ -67,11 +72,20 @@ function Cromossomo() {
 	}
 
 	this.mutar = function(taxaDeMutacao) {
-        for (var i = 0; i < this.genes.length; i++) 
+        var len = this.genes.length;
+
+        for (var i = 0; i < len; i++) 
         {
-            if (Math.random() < taxaDeMutacao)
-            {
-                this.genes[i] = Math.floor(Math.random() * 1) + 4;
+            if (Math.random() < taxaDeMutacao) {
+                if (i === len - 1) {
+                    var ultimo = this.genes[i];
+                    this.genes[i] = this.genes[i-1];
+                    this.genes[i-1] = ultimo;
+                } else {
+                    var troca = this.genes[i];
+                    this.genes[i] = this.genes[i+1];
+                    this.genes[i+1] = troca;
+                }
             }
         }
     }
