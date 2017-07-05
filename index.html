@@ -3,9 +3,72 @@
 <head>
 	<meta charset="utf-8">
 	<title>Algoritmos genéticos - Problema do labirinto</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css">
 </head>
 <body>
+	<section class="hero is-fullheight is-primary">
+  		<div class="hero-body">
+	    	<div class="container has-text-centered">
+	      		<div class="title is-2">
+	          	<strong>Algoritmo genético para o problema do labirinto</strong>
+	      		</div>
+	      		<h4 class="subtitle is-4">Jean Bairro e Yagan Cadorin</h4>
+	    	</div>
+  		</div>
+	</section>
 
+	<br/>
+
+	<div class="container" style="padding: 0 20px;">
+		<div class="title is-5 has-text-centered">
+			Clique em <a href="javascript:;" class="encontrar">encontrar</a> para ver os resultados
+		</div>
+		<!-- <div class="columns"> -->
+			<!-- <div class="column">
+				<div class="field">
+					<p class="control">
+						<input class="input tamanhoDaPopulacao" type="text" placeholder="Tamanho da população">
+					</p>
+				</div>
+			</div>
+			<div class="column">
+				<div class="field">
+					<p class="control">
+						<input class="input taxaDeMutacao" type="text" placeholder="Taxa de mutação">
+					</p>
+				</div>
+			</div>
+			<div class="column">
+				<div class="field is-grouped">
+					<p class="control">
+						<input class="input taxaDeCruzamento" type="text" placeholder="Taxa de cruzamento">
+					</p>
+					<p class="control">
+					    <a class="button is-info encontrar">
+					      Encontrar
+					    </a>
+			  		</p>
+				</div>	
+			</div> -->
+		<!-- </div> -->
+
+		<br/>
+
+		<div class="columns">
+			<div class="column is-two-quarters">
+				<canvas id="canvas" width="450" height="300" style="border:1px solid #000000;"></canvas>
+			</div>
+			<div class="column">
+				<p>Gerações: <span id="geracoes">0</span></p>
+				<p>Fitness médio (Últ. geração): <span id="fitnessMedio">0</span></p>
+				<p>Fitness máximo (Últ. geração): <span id="fitnessMaximo">0</span></p>
+				<p>Genes (Melhor crom. últ. geração): <span id="genes">...</span></p>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/synaptic/1.0.10/synaptic.js"></script>
 	<script src="app/ui.js"></script>
 	<script src="app/mapa.js"></script>
 	<script src="app/heuristica/cromossomo.js"></script>

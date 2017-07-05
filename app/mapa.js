@@ -18,7 +18,9 @@ function Mapa() {
 
 	this.tamanho = {
 		LARGURA: 15,
-		ALTURA: 10
+		ALTURA: 10,
+		QTD_TILES: 150,
+		TAMANHO_TILE: 30
 	}
 
 	this.labirinto = [
@@ -45,5 +47,55 @@ function Mapa() {
 			case 4: 
 				return "DIREITA";
 		}
+	}
+
+	this.retornaCaminhoPercorrido = function(direcoes) {
+		var caminho = [];
+		var len = direcoes.length;
+		var posicaoX = this.posicaoInicial.X;
+        var posicaoY = this.posicaoInicial.Y;
+
+		for (var i = 0; i < len; i++)
+        {
+        	var direcao = direcoes[i];
+
+            if (direcao === this.direcao.DIREITA && posicaoX < this.tamanho.LARGURA-1 && this.labirinto[posicaoY][posicaoX+1] === 0) {
+                ++posicaoX;
+                caminho.push({ x: posicaoX, y: posicaoY });
+            }
+            else if (direcao === this.direcao.CIMA && posicaoY > 0 && this.labirinto[posicaoY-1][posicaoX] === 0) {
+                --posicaoY;
+                caminho.push({ x: posicaoX, y: posicaoY });
+            } else if (direcao === this.direcao.ESQUERDA && posicaoX > 0 && (this.labirinto[posicaoY][posicaoX-1] === 0 || this.labirinto[posicaoY][posicaoX-1] === 8)) {
+                --posicaoX;
+                caminho.push({ x: posicaoX, y: posicaoY });
+                
+                if (this.labirinto[posicaoY][posicaoX] === 8) {
+                    break;
+                }
+            }
+            else if (direcao === this.direcao.BAIXO && posicaoY < this.tamanho.ALTURA-1 && this.labirinto[posicaoY+1][posicaoX] === 0) {
+                ++posicaoY;
+                caminho.push({ x: posicaoX, y: posicaoY });
+            }
+            else {
+            	break;
+            }
+        }
+
+        return caminho;
+	}
+
+	this.retornarCaminhoTraduzido = function(direcoes) {
+		var traducao = "";
+		var len = direcoes.length;
+
+		for (var i = 0; i < len; i++)
+        {
+        	var direcao = direcoes[i];
+        	traducao += `${this.traduzir(direcao)}, `;
+        }
+
+        return traducao;
 	}
 }

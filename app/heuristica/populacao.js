@@ -1,5 +1,5 @@
 function Populacao(cromossomos) {
-	const TAMANHO_DA_POPULACAO = 100;
+	const TAMANHO_DA_POPULACAO = 200;
 
 	this.cromossomos = cromossomos || [];
 	this.fitnessMedio = 0;

@@ -3,6 +3,9 @@
 	var mapa = new Mapa();
 	var resolvedor = new ResolvedorDeLabirinto();
 	
+	$(document).on("click", ".encontrar", function() {
+		ui.desenharSolucao(resolvedor.resolver(mapa), mapa);
+	});
+
 	ui.desenharMapa(mapa);
-	ui.desenharSolucao(resolvedor.resolver(mapa));
 }());

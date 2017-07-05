@@ -8,26 +8,24 @@ function ResolvedorDeLabirinto() {
 
 		var evolucionador = new Evolucionador(mapa);
 
-		// for (var i = 0; i < 500; i++) {
-		// 	geracoes.push(evolucionador.evoluir2(geracoes[i]));
-		// }
+		for (var i = 0; i < 999; i++) {
+			var geracaoEvoluida = evolucionador.evoluir2(geracoes[i]);
+			geracoes.push(geracaoEvoluida);
 
-		var i = 0;
-		while (geracoes[i].retornarMelhorCromossomo().fitness < .3) {
-			geracoes.push(evolucionador.evoluir2(geracoes[i]));
-			i++;	
+			if (geracaoEvoluida.retornarMelhorCromossomo().fitness === 1) {
+				break;
+			}
 		}
 
-		geracoes.forEach(function(item, index){
-			console.log("Fitness médio: " + item.fitnessMedio);
-			console.log("Fitness máximo: " + item.retornarMelhorCromossomo().fitness);
-		});
+		console.log(geracoes);
 
-		var best = geracoes[i].retornarMelhorCromossomo();
-		var str = "";
-		best.genes.forEach(function(g) {
-        	str += (mapa.traduzir(g) + ", ");
-        });
-        console.log(str);
+		var melhorCromossomoDaUltimaGeracao = geracoes[geracoes.length-1].retornarMelhorCromossomo();
+		
+		return {
+			melhorCromossomoDaUltimaGeracao: melhorCromossomoDaUltimaGeracao,
+			quantidadeDeGeracoes: geracoes.length,
+			caminhoTraduzido: mapa.retornarCaminhoTraduzido(melhorCromossomoDaUltimaGeracao.genes),
+			fitnessMedio: geracoes[geracoes.length-1].fitnessMedio
+		};
 	}
 }

@@ -1,5 +1,5 @@
 function Evolucionador(mapa) {
-	const TAMANHO_DA_POPULACAO = 100;
+	const TAMANHO_DA_POPULACAO = 200;
 	const TAXA_CRUZAMENTO = 0.7;
 	const TAXA_MUTACAO = 0.1;
     const TAXA_ELITISMO = 0.1;
